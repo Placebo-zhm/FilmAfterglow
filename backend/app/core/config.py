@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     debug: bool = False
     api_v1_prefix: str = "/api/v1"
     cors_origins: list[str] = ["http://localhost:5173"]
+    mongodb_uri: str = "mongodb://localhost:27017"
+    mongodb_database: str = "filmafterglow"
+    mongodb_server_selection_timeout_ms: int = 5000
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -6,12 +6,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.router import api_router
 from app.core.config import settings
+from app.db.mongodb import mongodb
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
-    """Manage application-wide startup and shutdown resources."""
-    yield
+    await mongodb.connect()
+    try:
+        yield
+    finally:
+        await mongodb.disconnect()
 
 
 def create_app() -> FastAPI:
